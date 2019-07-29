@@ -1,0 +1,110 @@
+<div class="container" style="position: relative">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="fromDate">Date From</label>
+        <input type="text" class="form-control" bsDatepicker [bsConfig]="bsConfig" placeholder="Select Date"
+          [(ngModel)]="fromDate">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="fromDate">To</label>
+        <input type="text" class="form-control" bsDatepicker [bsConfig]="bsConfig" placeholder="Select Date"
+          [(ngModel)]="toDate">
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="author">Author</label>
+        <ng-select [items]="authors" bindLabel="displayname" bindValue="employeecode" placeholder="Select Author"
+          [(ngModel)]="userParams.author">
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="storyDesk">Desk</label>
+        <ng-select [items]="deskOptions" placeholder="Select Desk" [(ngModel)]="userParams.storyDesk">
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="center">Center</label>
+        <ng-select [items]="centers" bindLabel="centerName" bindValue="centerCode" placeholder="Select Center"
+          [(ngModel)]="userParams.center">
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="form-group">
+        <label for="heading">Heading</label>
+        <input type="text" class="form-control" [(ngModel)]="userParams.heading" placeholder="Type heading">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" style="margin-left: 10px" (click)="loadStories()">Apply
+        Filters</button>
+      <button type="button" class="btn btn-info" style="margin-left: 10px" (click)="resetFiltes()">Reset
+        Filters</button>
+    </div>
+
+    <div class="pull-right">
+      <label style="margin-left: 10px">Order By: </label>
+      <div class="btn-group">
+        <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadStories()"
+          class="btn btn-primary" btnRadio="latest">Lastest</button>
+        <button type="button" name="orderBy" [(ngModel)]="userParams.orderBy" (click)="loadStories()"
+          class="btn btn-primary" btnRadio="oldest">Oldest</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Heading</th>
+          <th scope="col">Story</th>
+          <th scope="col">Word</th>
+          <th scope="col">Story Date</th>
+          <th scope="col">Desk</th>
+          <th scope="col">View</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let story of stories; let i = index">
+          <th scope="row">{{ i +(this.serialNumber- 1) + 1 }}</th>
+          <!-- <td>
+                <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2"
+                  style="width: 20px">
+                {{ country.name }}
+              </td> -->
+          <td>{{ story.storyHeading | truncateText:30 }}</td>
+          <td>{{ story.storyBody | truncateText:100 }}</td>
+          <td>{{ story.storyWord }}</td>
+          <td>{{ story.entryDate | date:'medium' }}</td>
+          <td>{{ story.storyDesk}}</td>
+          <td><a (click)="openModalWithComponent(story)"><span><i class="fa fa-eye fa-2x" aria-hidden="true"></i></span></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div>
+      <pagination [boundaryLinks]="true" [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage"
+        [maxSize]="10" (pageChanged)="pageChanged($event)" [(ngModel)]="pagination.currentPage" class="pagination-sm"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+      </pagination>
+    </div>
+  </div>
+  <p *ngFor="let item of _listAuthors">{{item.text}}</p>
+</div>

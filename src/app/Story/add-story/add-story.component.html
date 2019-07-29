@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row">
+    <div class="alert alert-info" [hidden]="!storyCreateForm.dirty">
+      <p><strong>Information: </strong> You have made changes. Any unsaved changes will be lost!</p>
+    </div>
+  </div>
+  <form [formGroup]="storyCreateForm" (ngSubmit)="createStory()">
+    <div class="row">
+      <label for="storyDesk">Desk</label>
+      <div class="form-group"
+        [ngClass]="{'has-error': storyCreateForm.get('storyDesk').errors && storyCreateForm.get('storyDesk').touched}">
+        <select class="form-control" formControlName="storyDesk" placeHolder="select desk">
+          <option value="">Select Desk</option>
+          <option value="Print">Print</option>
+          <option value="Online">Online</option>
+          <option value="Both">Both</option>
+        </select>
+        <span class="help-block"
+          *ngIf="storyCreateForm.get('storyDesk').hasError('required') && storyCreateForm.get('storyDesk').touched">
+          Desk is required
+        </span>
+      </div>
+      <label for="storyDesk">Story Type</label>
+      <div class="form-group"
+        [ngClass]="{'has-error': storyCreateForm.get('storyType').errors && storyCreateForm.get('storyType').touched}">
+        <select class="form-control" formControlName="storyType" placeHolder="select type">
+          <option value="">Select Type</option>
+          <option value="ASSIGNMENT">Assignment</option>
+          <option value="PRESS RELEASE">Press Release</option>
+          <option value="RE-WRITE/BUREAU">Re-write/Bureau</option>
+          <option value="REPORT">Report</option>
+          <option value="SELF WRITTEN">Self-Written</option>
+          <option value="TRANSLATED">Translated</option>
+        </select>
+        <span class="help-block"
+          *ngIf="storyCreateForm.get('storyType').hasError('required') && storyCreateForm.get('storyType').touched">
+          Type is required
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <label for="storyHeading">Heading</label>
+      <div class="form-group"
+        [ngClass]="{'has-error': storyCreateForm.get('storyHeading').errors && storyCreateForm.get('storyHeading').touched}">
+        <textarea class="form-control" rows="2" formControlName="storyHeading"></textarea>
+        <span class="help-block"
+          *ngIf="storyCreateForm.get('storyHeading').hasError('required') && storyCreateForm.get('storyHeading').touched">
+          Heading is required
+        </span>
+        <span class="help-block"
+          *ngIf="storyCreateForm.get('storyHeading').hasError('maxLength') && storyCreateForm.get('storyHeading').touched">
+          Heading must be less than 500 characters
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <label for="storyBody">Story</label>
+      <div class="form-group"
+        [ngClass]="{'has-error': storyCreateForm.get('storyBody').errors && storyCreateForm.get('storyBody').touched}">
+        <textarea class="form-control" rows="6" formControlName="storyBody"></textarea>
+        <span class="help-block"
+          *ngIf="storyCreateForm.get('storyBody').hasError('required') && storyCreateForm.get('storyBody').touched">
+          Body is required
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <label for="keyword">Keyword</label>
+      <div class="form-group"
+        [ngClass]="{'has-error': storyCreateForm.get('keyword').errors && storyCreateForm.get('keyword').touched}">
+        <input type="text" class="form-control" formControlName="keyword">
+        <span class="help-block"
+          *ngIf="storyCreateForm.get('keyword').hasError('required') && storyCreateForm.get('keyword').touched">
+          Keyword is required
+        </span>
+      </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <button class="btn btn-success" type="submit" [disabled]="!storyCreateForm.valid">Submit</button>
+            <button class="btn btn-default" type="button" (click)="reset()">Reset</button>
+          </div>
+    </div>
+  </form>
+</div>

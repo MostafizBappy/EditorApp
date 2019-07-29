@@ -1,0 +1,24 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../assets/logo.png" id="icon" alt="User Icon" />
+      <h1>Prothomalo Editorial</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form #loginForm="ngForm" (ngSubmit)="login()" *ngIf="!loggedIn()">
+      <input type="text" id="login" class="fadeIn second" name="username" placeholder="username" [(ngModel)]="model.username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" [(ngModel)]="model.password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Help Desk -->
+    <div id="formFooter">
+      <a class="underlineHover" href="https://it.palobd.com/" target="_blank">Go to the Help Desk</a>
+    </div>
+
+  </div>
+</div>
