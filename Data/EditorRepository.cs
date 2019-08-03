@@ -47,7 +47,7 @@ namespace EditorApp.API.Data
                 else
                 {
                     tDate = System.Convert.ToDateTime(param.ToDate);
-                    stories = stories.Where(s => System.Convert.ToDateTime(s.EntryDate) <= tDate);
+                    stories = stories.Where(s => s.StoryDate.Value.Date <= tDate.Date);
                 }
             }
             else
@@ -55,13 +55,13 @@ namespace EditorApp.API.Data
                 if (param.ToDate == null || param.ToDate == "undefined")
                 {
                     fDate = System.Convert.ToDateTime(param.FromDate);
-                    stories = stories.Where(s => System.Convert.ToDateTime(s.EntryDate) >= fDate);
+                    stories = stories.Where(s => s.StoryDate.Value.Date >= fDate.Date);
                 }
                 else
                 {
                     fDate = System.Convert.ToDateTime(param.FromDate);
                     tDate = System.Convert.ToDateTime(param.ToDate);
-                    stories = stories.Where(s => System.Convert.ToDateTime(s.EntryDate) >= fDate && System.Convert.ToDateTime(s.EntryDate) <= tDate);
+                    stories = stories.Where(s => s.EntryDate.Value.Date >= fDate.Date && s.EntryDate.Value.Date <= tDate.Date);
                 }
             }
 
@@ -125,6 +125,15 @@ namespace EditorApp.API.Data
         {
             var centers = await _context.Ncenter.OrderBy(o => o.CenterName).ToListAsync();
             return centers;
+        }
+
+        public bool IsHeadingExists(string heading)
+        {
+            bool isExists = false;
+            var storyWithHeading = _context.Story.Where(s => s.StoryHeading == heading && s.StoryDate.Value.Date == DateTime.Now.Date).FirstOrDefault();
+            if(storyWithHeading != null)
+                isExists = true;
+            return isExists;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace EditorApp.API.Helpers
         {
             CreateMap<TblUser, UserForLoginDto>();
             CreateMap<Story, StoryForReturnDto>();
+            CreateMap<StoryForReturnDto, Story>();
             CreateMap<DwEmployee, AuthorListDto>();
             CreateMap<View_StorySearch, StoryForReturnDto>();
         }

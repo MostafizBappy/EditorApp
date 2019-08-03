@@ -14,5 +14,6 @@ namespace DatingApp.API.Data
         Task<Story> GetStory(int id);
         Task<List<DwEmployee>> GetAuthorList();
         Task<List<Ncenter>> GetCenterList();
+        bool IsHeadingExists(string heading);
     }
 }
