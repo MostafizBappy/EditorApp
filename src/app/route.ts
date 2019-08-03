@@ -4,7 +4,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import {Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AddStoryComponent } from './Story/add-story/add-story.component';
-import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
+import { UploadPhotoComponent } from './photo/upload-photo/upload-photo.component';
 import { StorySearchListAuthorResolver } from './_resolver/story-search-list-author.resolver.ts';
 import { PreventUnsavedChanges } from './_guards/story-unsavedChanges.guard';
 

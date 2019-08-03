@@ -1,4 +1,4 @@
-<div id="navbar-wrapper" *ngIf="loggedIn()">
+<div id="navbar-wrapper" [hidden]="!loggedIn()">
     <header>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
@@ -28,8 +28,8 @@
         </nav>
     </header>
 </div>
-<div id="wrapper">
-    <div id="sidebar-wrapper" *ngIf="loggedIn()">
+<div id="wrapper" [ngStyle]="{'padding-left': loggedIn() ? '225px' : '0px'}">
+    <div id="sidebar-wrapper" [hidden]="!loggedIn()">
         <aside id="sidebar">
             <ul id="sidemenu" class="sidebar-nav">
                 <li>

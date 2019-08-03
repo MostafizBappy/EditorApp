@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { StorySearchListComponent } from './Story/story-search-list/story-search-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStoryComponent } from './Story/add-story/add-story.component';
-import { UploadPhotoComponent } from './upload-photo/upload-photo.component';
+import { UploadPhotoComponent } from './photo/upload-photo/upload-photo.component';
 import { RouterModule } from '@angular/router';
 import { appRoute } from './route';
 import { HomeComponent } from './home/home.component';
