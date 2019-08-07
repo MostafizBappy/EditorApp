@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,13 @@ namespace EditorApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //core 2.1
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None; 
+            });
+
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:token").Value);
             services.AddDbContext<ReporterContext>(x => x
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
@@ -55,7 +63,9 @@ namespace EditorApp.API
                         ValidateAudience = false
                     };
                 });
-            services.AddMvc().AddJsonOptions(opt => {
+            services.AddMvc()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(opt => {
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
         }
@@ -80,11 +90,21 @@ namespace EditorApp.API
                         }
                     });
                 });
+                app.UseHsts();
             }
 
+            // app.UseHttpsRedirection();
+            app.UseCookiePolicy();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new {controller = "Fallback", action = "Index"}
+                );
+            });
         }
     }
 }

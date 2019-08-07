@@ -15,5 +15,7 @@ namespace DatingApp.API.Data
         Task<List<DwEmployee>> GetAuthorList();
         Task<List<Ncenter>> GetCenterList();
         bool IsHeadingExists(string heading);
+        string GetUserCode(string userId);
+        string GetDistrictName(string userCode);
     }
 }

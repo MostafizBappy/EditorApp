@@ -135,5 +135,21 @@ namespace EditorApp.API.Data
                 isExists = true;
             return isExists;
         }
+
+        public string GetUserCode(string userId)
+        {
+            return _context.DwEmployee.Where(e => e.Ldapint == userId).FirstOrDefault().Employeecode;
+        }
+
+        public string GetDistrictName(string userCode)
+        {
+            string districtName = String.Empty;
+            int districtId = Convert.ToInt32(_context.TblUser.FirstOrDefault(u => u.UserCode == userCode).DistrictNameId);
+            if(districtId > 0)
+            {
+                districtName = _context.District.FirstOrDefault(d => d.DistrictNameId == districtId).DistrictNameEng;
+            }
+            return districtName;
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace EditorApp.API.Models
     {
         public int DistrictNameId { get; set; }
         public string DistrictName { get; set; }
+        public string DistrictNameEng { get; set; }
     }
 }

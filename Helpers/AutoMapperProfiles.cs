@@ -13,6 +13,7 @@ namespace EditorApp.API.Helpers
             CreateMap<StoryForReturnDto, Story>();
             CreateMap<DwEmployee, AuthorListDto>();
             CreateMap<View_StorySearch, StoryForReturnDto>();
+            CreateMap<PhotoDto, PhotoSummary>();
         }
     }
 }

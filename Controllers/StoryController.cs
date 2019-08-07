@@ -22,10 +22,8 @@ namespace EditorApp.API.Controllers
         // private readonly ReporterContext _context;
         private readonly IEditorRepository _repo;
         private readonly IMapper _mapper;
-        private readonly ReporterContext _context;
-        public StoryController(IEditorRepository repo, IMapper mapper, ReporterContext context)
+        public StoryController(IEditorRepository repo, IMapper mapper)
         {
-            _context = context;
             _mapper = mapper;
             _repo = repo;
 
@@ -76,7 +74,7 @@ namespace EditorApp.API.Controllers
                 story.EntryDate = DateTime.Now;
                 story.UpdateDate = DateTime.Now;
                 var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                string userCode = _context.DwEmployee.Where(e => e.Ldapint == userId).FirstOrDefault().Employeecode;
+                string userCode = _repo.GetUserCode(userId);
                 story.UserCode = userCode;
                 story.Status = 0;
                 story.ApprovalCheck = 0;

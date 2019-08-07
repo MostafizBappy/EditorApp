@@ -562,6 +562,8 @@ namespace EditorApp.API.Data
                 entity.HasKey(e => e.DistrictNameId);
 
                 entity.Property(e => e.DistrictName).HasMaxLength(150);
+                
+                entity.Property(e => e.DistrictNameEng).HasMaxLength(150);
             });
 
             modelBuilder.Entity<DwEdition>(entity =>

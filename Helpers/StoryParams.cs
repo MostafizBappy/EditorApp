@@ -17,8 +17,8 @@ namespace DatingApp.API.Helpers
         public string Author { get; set; }
         public string StoryDesk { get; set; }
         public string OrderBy { get; set; }
-        public string FromDate { get; set; }
-        public string ToDate { get; set; }
+        public string FromDate { get; set; } = DateTime.Now.ToString();
+        public string ToDate { get; set; } = DateTime.Now.AddDays(1).ToString();
         public int Center { get; set; }
         public string Heading { get; set; }
     }
