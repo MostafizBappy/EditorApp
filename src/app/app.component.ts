@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './_services/auth.service';
 import { Spinkit } from 'ng-http-loader/spinkits';
@@ -8,13 +9,16 @@ import { Spinkit } from 'ng-http-loader/spinkits';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = 'Editorial App';
   public spinkit = Spinkit;
 
-  constructor(public authService: AuthService) { }
-  ngOnInit() {}
+  constructor(public authService: AuthService, private titleService: Title) { }
+  ngOnInit() {
+    this.titleService.setTitle(this.title);
+  }
   loggedIn() {
     return this.authService.loggedIn();
   }
+
 
 }

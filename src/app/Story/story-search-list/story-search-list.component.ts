@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { ViewStoryComponent } from './../view-story/view-story.component';
 import { Author } from './../../_models/Author';
 import { AlertifyService } from './../../_services/alertify.service';
@@ -29,7 +30,6 @@ export class StorySearchListComponent implements OnInit {
   centers: Center[];
   _listAuthors: any[];
   userParams: any = {};
-  myDateValue: Date;
   user: User = JSON.parse(localStorage.getItem('user'));
   bsConfig: Partial<BsDatepickerConfig>;
   deskOptions: Array<String> = ['Print', 'Online', 'Both'];
@@ -37,16 +37,17 @@ export class StorySearchListComponent implements OnInit {
   constructor(private storyService: StoryService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+    private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Story Search');
     this.route.data.subscribe(data => {
       this.stories = data['stories'].result;
       this.pagination = data['stories'].pagination;
       this.authors = data['authors'];
-      this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY'});
+      this.bsConfig = Object.assign({}, { containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' });
       this.serialNumber = 1;
-      this.myDateValue = new Date();
     });
 
     this.storyService.getCenters().subscribe((data) => {
@@ -56,6 +57,9 @@ export class StorySearchListComponent implements OnInit {
     });
 
     this.userParams.orderBy = 'latest';
+    this.fromDate = new Date();
+    this.toDate = new Date();
+    this.toDate.setDate(this.toDate.getDate() + 1);
   }
 
 
@@ -87,10 +91,14 @@ export class StorySearchListComponent implements OnInit {
     this.userParams.author = null;
     this.userParams.storyDesk = null;
     this.userParams.orderBy = 'latest';
+
     this.userParams.fromDate = '';
-    this.fromDate = null;
+    this.fromDate = new Date();
+
     this.userParams.toDate = '';
-    this.toDate = null;
+    this.toDate = new Date();
+    this.toDate.setDate(this.toDate.getDate() + 1);
+
     this.userParams.center = null;
     this.userParams.heading = '';
     this.loadStories();

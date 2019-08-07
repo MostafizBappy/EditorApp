@@ -1,15 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
-@media (min-width: 1200px) {
+@media only screen and (max-width: 1920px) and (min-width: 1400px)  {
     .container {
-      width: 970px;
+      width: 1200px;
       margin-top: 20px;
     }
   }
-  @media (min-width: 992px) {
+  @media only screen and (max-width: 1366px) and (min-width: 992px)  {
     .container {
       width: 970px;
       margin-top: 20px;
     }
+}
+@media only screen and (max-width: 500px)  {
+  .container {
+    width: 450px;
+    margin-top: 10px;
+  }
 }

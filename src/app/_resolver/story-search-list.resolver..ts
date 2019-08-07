@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 export class StorySearchListResolver implements Resolve<Story[]> {
     pageSize = 10;
     pageNumber = 1;
+    userParams: any;
 
     constructor(private storyService: StoryService,
         private route: Router, private alertify: AlertifyService) {}
