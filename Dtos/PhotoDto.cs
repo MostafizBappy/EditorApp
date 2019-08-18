@@ -7,6 +7,7 @@ namespace EditorApp.API.Dtos
     {
         public decimal Id { get; set; }
         public string PhotoName { get; set; }
+        public string UserId { get; set; }
         public IFormFile File { get; set; }
         public string PhotoPath { get; set; }
         public DateTime? PhotoDate { get; set; }

@@ -144,7 +144,7 @@ namespace EditorApp.API.Data
         public string GetDistrictName(string userCode)
         {
             string districtName = String.Empty;
-            int districtId = Convert.ToInt32(_context.TblUser.FirstOrDefault(u => u.UserCode == userCode).DistrictNameId);
+            int districtId = Convert.ToInt32(_context.TblUser.FirstOrDefault(u => u.NewswrapCode == userCode).DistrictNameId);
             if(districtId > 0)
             {
                 districtName = _context.District.FirstOrDefault(d => d.DistrictNameId == districtId).DistrictNameEng;

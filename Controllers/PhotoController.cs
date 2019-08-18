@@ -21,9 +21,9 @@ namespace EditorApp.API.Controllers {
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> PhotoUpload (string userId, PhotoDto photoForUpload) {
-            photoForUpload.UserCode = _repo.GetUserCode (userId);
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> PhotoUpload (PhotoDto photoForUpload) {
+            photoForUpload.UserCode = _repo.GetUserCode (photoForUpload.UserId);
             photoForUpload.UsedStatus = 0;
             string districtName = _repo.GetDistrictName (photoForUpload.UserCode);
 
@@ -35,7 +35,7 @@ namespace EditorApp.API.Controllers {
                     DateTime.Now.ToString ("dd") + "_" +
                     file.FileName.Replace ("+", "_").Replace ("jpeg", "jpg").Replace ("png", "jpg").Replace ("?", "-");
 
-                var filePath = Path.Combine (path, file.FileName);
+                var filePath = Path.Combine (path, photoForUpload.PhotoName);
                 using (var fileStream = new FileStream (filePath, FileMode.Create)) {
                     await file.CopyToAsync (fileStream);
                 }
