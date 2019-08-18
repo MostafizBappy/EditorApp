@@ -24,11 +24,11 @@
             <textarea class="form-control" rows="2" formControlName="description"></textarea>
             <span class="help-block"
               *ngIf="photoForm.get('description').hasError('required') && photoForm.get('description').touched">
-              Heading is required
+              Caption is required
             </span>
             <span class="help-block"
               *ngIf="photoForm.get('description').hasError('maxLength') && photoForm.get('description').touched">
-              Heading must be less than 4000 characters
+              Caption must be less than 4000 characters
             </span>
           </div>
         </div>

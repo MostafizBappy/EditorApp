@@ -4,4 +4,5 @@ export interface Photo {
     photoDesk: string;
     userCode: string;
     photoDate: Date;
+    userId: string;
 }

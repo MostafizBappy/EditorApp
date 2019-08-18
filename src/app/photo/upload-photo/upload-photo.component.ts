@@ -17,6 +17,7 @@ export class UploadPhotoComponent implements OnInit {
 
   baseUrl = environment.apiUrl;
   photos: Photo[];
+  photoForUpload: Photo;
   photoForm: FormGroup;
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
@@ -27,9 +28,9 @@ export class UploadPhotoComponent implements OnInit {
     private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Upload Photo');
     this.initializeUploader();
     this.createForm();
-    this.titleService.setTitle('Upload Photo');
   }
 
   createForm() {
@@ -45,7 +46,7 @@ export class UploadPhotoComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + 'photo' + this.authService.decodedToken.nameid,
+      url: this.baseUrl + 'photo/' + this.authService.decodedToken.nameid,
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -53,13 +54,10 @@ export class UploadPhotoComponent implements OnInit {
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
     });
-    // this.uploader.options.additionalParameter = {
-    //   description: this.photoForm['description'].value,
-    //   photoDesk: this.photoForm['photoDesk'].value
-    // };
-    this.uploader.onBuildItemForm = (item, form) => {
-      form.append('description', this.photoForm['description'].value);
-      form.append('photoDesk', this.photoForm['photoDesk'].value);
+
+    this.uploader.onBuildItemForm = (item, form: FormData) => {
+      form.append('description', this.photoForm.get('description').value);
+      form.append('photoDesk', this.photoForm.get('photoDesk').value);
     };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
@@ -71,14 +69,10 @@ export class UploadPhotoComponent implements OnInit {
           description: res.description,
           photoDesk: res.photoDesk,
           userCode: res.userCode,
-          photoDate: res.photoDate
+          photoDate: res.photoDate,
+          userId: res.userId
         };
         this.photos.push(photo);
-        // if (photo.isMain) {
-        //   this.authService.changeMemberPhoto(photo.url);
-        //   this.authService.currentUser.photoUrl = photo.url;
-        //   localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
-        // }
       }
     };
   }

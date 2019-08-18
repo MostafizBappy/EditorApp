@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Home');
+    console.log(this.authService.decodedToken);
   }
 
   login() {

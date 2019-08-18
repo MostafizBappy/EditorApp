@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { AlertifyService } from './../../_services/alertify.service';
 import { Component, OnInit } from '@angular/core';
 import { Story } from '../../_models/Story';
@@ -17,10 +18,12 @@ export class AddStoryComponent implements OnInit {
   constructor(private storyService: StoryService,
     private alertify: AlertifyService,
     private fb: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private titleService: Title) { }
 
   ngOnInit() {
     this.storyForm();
+    this.titleService.setTitle('Create Story');
   }
   // storyHeading: string;
   // storyBody: string;

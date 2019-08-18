@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AddStoryComponent } from './Story/add-story/add-story.component';
 import { StorySearchListAuthorResolver } from './_resolver/story-search-list-author.resolver.ts';
 import { PreventUnsavedChanges } from './_guards/story-unsavedChanges.guard';
+import { UploadPhotoComponent } from './photo/upload-photo/upload-photo.component';
 
 export const appRoute: Routes = [
     { path: 'home', component: HomeComponent},
@@ -21,9 +22,9 @@ export const appRoute: Routes = [
                         stories: StorySearchListResolver,
                         authors: StorySearchListAuthorResolver
                     }
-                }
-                // {path: 'addStory', component: AddStoryComponent, canDeactivate: [PreventUnsavedChanges]}
-                // {path: 'uploadPhoto', component: UploadPhotoComponent}
+                },
+                {path: 'addStory', component: AddStoryComponent, canDeactivate: [PreventUnsavedChanges]},
+                {path: 'uploadPhoto', component: UploadPhotoComponent}
             ]
     },
     { path: '**', redirectTo: 'home', pathMatch: 'full' }
